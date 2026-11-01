@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Live Voice Calling Assistant</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        waDark: '#0b141a',
+                        waPanel: '#111b21',
+                        waHeader: '#202c33',
+                        waGreen: '#00a884',
+                        waAccent: '#25D366',
+                        waCallDark: '#0c1a17',
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'ripple': 'ripple 1.8s infinite ease-out',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 20px rgba(37, 211, 102, 0.4)' },
+                            '50%': { transform: 'scale(1.05)', boxShadow: '0 0 35px rgba(37, 211, 102, 0.7)' },
+                        },
+                        ripple: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0.8' },
+                            '100%': { transform: 'scale(1.45)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .call-gradient {
+            background: radial-gradient(circle at 50% 30%, #10342b 0%, #081412 75%, #050b0a 100%);
+        }
+        .chat-bg {
+            background-color: #0b141a;
+            background-image: radial-gradient(#1e2c34 1px, transparent 1px);
+            background-size: 18px 18px;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-black text-slate-100 font-sans h-full flex items-center justify-center p-0 md:p-3 overflow-hidden select-none">
+
+    <!-- Mobile Device Container -->
+    <div class="relative w-full h-full md:max-w-md md:h-[94vh] md:max-h-[860px] bg-waDark md:rounded-[36px] md:shadow-2xl md:border md:border-slate-800 flex flex-col overflow-hidden">
+        
+        <!-- ============================================== -->
+        <!-- SCREEN 1: WHATSAPP HOME SCREEN                 -->
+        <!-- ============================================== -->
+        <div id="homeScreen" class="flex-1 flex flex-col chat-bg relative z-10 transition-opacity duration-300">
+            
+            <!-- WhatsApp Top Header -->
+            <header class="bg-waHeader px-4 py-3 flex items-center justify-between border-b border-white/5 shadow-md">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white font-bold border-2 border-waGreen shadow">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                        </div>
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-waAccent rounded-full border-2 border-waHeader"></span>
+                    </div>
+                    <div>
+                        <h1 class="text-sm font-bold text-white flex items-center gap-1.5">
+                            Gemini Live Voice AI
+                            <i data-lucide="check-check" class="w-4 h-4 text-sky-400"></i>
+                        </h1>
+                        <p class="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Online • Native Audio Streaming
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-1">
+                    <button id="btnHomeSettings" title="API Settings & Topic" class="p-2 rounded-full hover:bg-white/10 text-slate-300 transition relative">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                        <span id="apiKeyDot" class="hidden absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500"></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Home Content Area -->
+            <div class="flex-1 overflow-y-auto p-4 flex flex-col justify-between">
+                
+                <!-- Main Profile Card -->
+                <div class="bg-waPanel/90 backdrop-blur-md rounded-2xl p-5 border border-slate-700/60 shadow-lg text-center mt-2">
+                    <div class="relative inline-block mx-auto mb-3">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-emerald-600 via-teal-500 to-waAccent flex items-center justify-center text-white mx-auto border-2 border-waGreen p-0.5 shadow-md">
+                            <i data-lucide="mic" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <span class="absolute bottom-1 right-1 bg-waGreen text-white rounded-full p-1.5 shadow">
+                            <i data-lucide="radio" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+
+                    <h2 class="text-xl font-bold text-white tracking-tight">Gemini Live Audio AI</h2>
+                    <p class="text-xs text-slate-300 mt-1 font-medium">100% ह्यूमन-लाइक वॉइस • नो ब्राउज़र TTS रोबोट</p>
+
+                    <!-- Trust Tags -->
+                    <div class="flex flex-wrap items-center justify-center gap-1.5 mt-4">
+                        <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] text-emerald-300 font-medium flex items-center gap-1">
+                            <i data-lucide="zap" class="w-3 h-3 text-emerald-400"></i> Bidirectional WebSocket
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-[11px] text-teal-300 font-medium">
+                            🎙️ Aoede / Kore Human Voice
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-[11px] text-amber-300 font-medium">
+                            ⚡ Zero Robot Latency
+                        </span>
+                    </div>
+
+                    <div class="mt-4 p-3.5 bg-black/40 rounded-xl text-left border border-white/5 text-[11px] text-slate-300 space-y-1.5">
+                        <p class="text-emerald-400 font-semibold flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> एक्टिव टॉपिक / रोल
+                        </p>
+                        <p id="homeTopicDesc" class="text-slate-200 font-medium">Acupressure & Health Specialist</p>
+                    </div>
+                </div>
+
+                <!-- Call-To-Action Center: WHATSAPP CALL NOW BUTTON -->
+                <div class="py-6 flex flex-col items-center justify-center">
+                    <button id="btnStartCallNow" class="group relative flex items-center justify-center animate-pulse-glow transition-all active:scale-95">
+                        <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-waGreen to-waAccent flex items-center justify-center text-white shadow-2xl">
+                            <i data-lucide="phone-call" class="w-9 h-9 transition-transform group-hover:scale-110"></i>
+                        </div>
+                    </button>
+
+                    <div class="text-center mt-3">
+                        <span class="text-base font-bold text-waAccent tracking-wide">Live Call Now • बात करें</span>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Google के लाइव वॉइस मॉडल से सीधी बात</p>
+                    </div>
+                </div>
+
+                <!-- Guidance Footer -->
+                <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                    <p class="text-[11px] text-slate-400">टॉपिक या आवाज़ बदलने के लिए ⚙️ सेटिंग्स पर क्लिक करें</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 2: ACTIVE WHATSAPP CALL INTERFACE       -->
+        <!-- ============================================== -->
+        <div id="callingScreen" class="hidden absolute inset-0 z-30 call-gradient flex flex-col justify-between p-6 select-none transition-all duration-300">
+            
+            <!-- In-Call Top Header -->
+            <div class="flex items-center justify-between text-slate-300 pt-2">
+                <button id="btnMinimizeCall" class="p-2 rounded-full hover:bg-white/10 text-slate-300 transition" title="कॉल मिनिमाइज">
+                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                </button>
+                <div class="text-center">
+                    <div class="flex items-center justify-center gap-1 text-[11px] text-slate-400">
+                        <i data-lucide="lock" class="w-3 h-3 text-waGreen"></i>
+                        <span>Live PCM Streaming</span>
+                    </div>
+                    <span id="callStatusLabel" class="text-xs font-semibold text-emerald-400 tracking-wide">Connecting...</span>
+                </div>
+                <div class="w-9"></div>
+            </div>
+
+            <!-- In-Call Center Avatar & Status -->
+            <div class="flex-1 flex flex-col items-center justify-center my-auto">
+                <div class="relative flex items-center justify-center mb-5">
+                    <!-- Audio Wave Ripple Rings -->
+                    <div id="callRipple1" class="absolute w-52 h-52 rounded-full border-2 border-emerald-400/40 animate-ripple opacity-0 pointer-events-none"></div>
+                    <div id="callRipple2" class="absolute w-64 h-64 rounded-full border border-teal-400/30 animate-ripple opacity-0 pointer-events-none" style="animation-delay: 0.8s;"></div>
+
+                    <!-- Call Center Avatar -->
+                    <div class="relative w-36 h-36 rounded-full p-1.5 bg-gradient-to-tr from-emerald-500 via-teal-400 to-green-300 shadow-2xl flex items-center justify-center">
+                        <div class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center border-4 border-slate-900 shadow-inner">
+                            <i data-lucide="bot" class="w-16 h-16 text-emerald-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white tracking-tight">Gemini Live</h3>
+                <p id="callActiveTopic" class="text-xs text-emerald-400 font-medium mt-1 flex items-center gap-1.5 max-w-[80%] truncate text-center">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Acupressure & Health
+                </p>
+                
+                <!-- Live Seconds Counter -->
+                <div id="liveCallTimer" class="text-base font-mono tracking-widest text-emerald-300 font-semibold mt-1.5">
+                    00:00
+                </div>
+
+                <!-- DUAL LIVE SPEECH & ACTIVITY VISUALIZER BOXES -->
+                <div class="w-full max-w-xs mt-4 grid grid-cols-2 gap-2.5">
+                    
+                    <!-- USER (YOU) BOX -->
+                    <div id="userActivityCard" class="bg-black/50 border border-slate-700/60 rounded-2xl p-2.5 flex flex-col items-center justify-between transition-all duration-200">
+                        <div class="flex items-center gap-1.5 w-full justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 flex items-center gap-1">
+                                <i data-lucide="user" class="w-3.5 h-3.5 text-slate-400"></i> आप (You)
+                            </span>
+                            <span id="userMicDot" class="w-2 h-2 rounded-full bg-slate-500"></span>
+                        </div>
+                        
+                        <!-- User Realtime Audio Volume Meter -->
+                        <div class="flex items-end justify-center gap-1 h-7 my-1 w-full">
+                            <span id="userBar1" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="userBar2" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="userBar3" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="userBar4" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="userBar5" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                        </div>
+                        
+                        <span id="userStatusText" class="text-[10px] text-slate-400 truncate">सुन रहे हैं...</span>
+                    </div>
+
+                    <!-- AI ASSISTANT BOX -->
+                    <div id="aiActivityCard" class="bg-black/50 border border-slate-700/60 rounded-2xl p-2.5 flex flex-col items-center justify-between transition-all duration-200">
+                        <div class="flex items-center gap-1.5 w-full justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 flex items-center gap-1">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i> AI Assistant
+                            </span>
+                            <span id="aiVoiceDot" class="w-2 h-2 rounded-full bg-slate-500"></span>
+                        </div>
+
+                        <!-- AI Realtime Output Waveform Meter -->
+                        <div class="flex items-end justify-center gap-1 h-7 my-1 w-full">
+                            <span id="aiBar1" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="aiBar2" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="aiBar3" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="aiBar4" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                            <span id="aiBar5" class="w-1 bg-slate-600 rounded-full transition-all duration-75 h-1.5"></span>
+                        </div>
+
+                        <span id="aiStatusText" class="text-[10px] text-slate-400 truncate">तैयार हैं</span>
+                    </div>
+
+                </div>
+
+                <!-- Central Status Banner -->
+                <div class="mt-3.5 inline-flex items-center gap-2 px-4 py-1.5 bg-black/60 border border-slate-700/60 rounded-full text-xs text-slate-200 shadow-lg">
+                    <span id="speakingDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span id="callSubState">कॉल जुड़ रही है...</span>
+                </div>
+            </div>
+
+            <!-- In-Call WhatsApp Bottom Floating Bar -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 flex items-center justify-around shadow-2xl backdrop-blur-lg">
+                
+                <!-- Mic Mute / Unmute Toggle -->
+                <button id="btnCallMic" class="flex flex-col items-center gap-1 group">
+                    <div id="micBtnCircle" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white transition group-hover:bg-white/20">
+                        <i id="micIcon" data-lucide="mic" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[10px] text-slate-400" id="micLabel">म्यूट</span>
+                </button>
+
+                <!-- RED HANG UP CALL BUTTON -->
+                <button id="btnHangUp" class="flex flex-col items-center gap-1 group">
+                    <div class="w-14 h-14 rounded-full bg-rose-600 hover:bg-rose-500 flex items-center justify-center text-white shadow-lg shadow-rose-950 transition active:scale-95">
+                        <i data-lucide="phone-off" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-[10px] text-rose-400 font-semibold">कट करें</span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- MODAL: SETTINGS & CUSTOM TOPIC                 -->
+        <!-- ============================================== -->
+        <div id="settingsModal" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+            <div class="w-full bg-waPanel border border-slate-700 rounded-2xl p-4 shadow-2xl">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-700">
+                    <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+                        <i data-lucide="settings-2" class="w-4 h-4"></i> Gemini Live Audio Settings
+                    </h3>
+                    <button id="btnCloseSettingsModal" class="text-slate-400 hover:text-white">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="mt-3 space-y-3">
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Gemini API Key</label>
+                        <input type="password" id="inputApiKey" placeholder="AIzaSy..." 
+                               class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        <p class="text-[10px] text-slate-400 mt-1">Key आपके ब्राउज़र के लोकल स्टोरेज में सुरक्षित रहेगी।</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Topic / Assistant Role</label>
+                        <textarea id="inputTopic" rows="2" placeholder="Udaharan: Acupressure Doctor, Health Coach, General Conversational Partner..." 
+                                  class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Live Audio Model</label>
+                        <select id="selectModel" class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            <option value="gemini-2.5-flash-native-audio" selected>gemini-2.5-flash-native-audio (अल्ट्रा-फास्ट लाइव ऑडियो)</option>
+                            <option value="gemini-3.8-live">gemini-3.8-live (लेटेस्ट 2026 लाइव मॉडल)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">ह्यूमन वॉइस (Voice Persona)</label>
+                        <select id="selectVoiceName" class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            <option value="Aoede" selected>Aoede (सुरीली और आत्मीय - Female)</option>
+                            <option value="Kore">Kore (आत्मविश्वासी और स्पष्ट - Female)</option>
+                            <option value="Puck">Puck (ऊर्जावान - Male)</option>
+                            <option value="Fenrir">Fenrir (शांत और गंभीर - Male)</option>
+                        </select>
+                    </div>
+
+                    <button id="btnSaveSettings" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2 rounded-lg text-xs flex items-center justify-center gap-1.5 transition">
+                        <i data-lucide="check" class="w-4 h-4"></i> Save & Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Application Script: Gemini Live WebSocket Pipeline -->
+    <script>
+        let isCallActive = false;
+        let isMicMuted = false;
+        let callSeconds = 0;
+        let callTimerInterval = null;
+
+        // WebSocket & Web Audio Context
+        let liveSocket = null;
+        let audioContext = null;
+        let micStream = null;
+        let scriptProcessor = null;
+        let audioInputSource = null;
+        let userAnalyser = null;
+        let visualizerAnimId = null;
+
+        // Live Audio Output Playback Queue
+        let nextPlayTime = 0;
+        let isAISpeaking = false;
+        let aiSilenceCheckTimeout = null;
+
+        // UI references
+        const homeScreen = document.getElementById('homeScreen');
+        const callingScreen = document.getElementById('callingScreen');
+        const btnStartCallNow = document.getElementById('btnStartCallNow');
+        const btnHangUp = document.getElementById('btnHangUp');
+        const btnMinimizeCall = document.getElementById('btnMinimizeCall');
+
+        const liveCallTimer = document.getElementById('liveCallTimer');
+        const callStatusLabel = document.getElementById('callStatusLabel');
+        const callSubState = document.getElementById('callSubState');
+        const speakingDot = document.getElementById('speakingDot');
+        const callRipple1 = document.getElementById('callRipple1');
+        const callRipple2 = document.getElementById('callRipple2');
+
+        const userActivityCard = document.getElementById('userActivityCard');
+        const userMicDot = document.getElementById('userMicDot');
+        const userStatusText = document.getElementById('userStatusText');
+
+        const aiActivityCard = document.getElementById('aiActivityCard');
+        const aiVoiceDot = document.getElementById('aiVoiceDot');
+        const aiStatusText = document.getElementById('aiStatusText');
+
+        const homeTopicDesc = document.getElementById('homeTopicDesc');
+        const callActiveTopic = document.getElementById('callActiveTopic');
+
+        const userBars = [
+            document.getElementById('userBar1'),
+            document.getElementById('userBar2'),
+            document.getElementById('userBar3'),
+            document.getElementById('userBar4'),
+            document.getElementById('userBar5')
+        ];
+        const aiBars = [
+            document.getElementById('aiBar1'),
+            document.getElementById('aiBar2'),
+            document.getElementById('aiBar3'),
+            document.getElementById('aiBar4'),
+            document.getElementById('aiBar5')
+        ];
+
+        const btnCallMic = document.getElementById('btnCallMic');
+        const micIcon = document.getElementById('micIcon');
+        const micLabel = document.getElementById('micLabel');
+        const micBtnCircle = document.getElementById('micBtnCircle');
+
+        // Modals
+        const settingsModal = document.getElementById('settingsModal');
+        const btnHomeSettings = document.getElementById('btnHomeSettings');
+        const btnCloseSettingsModal = document.getElementById('btnCloseSettingsModal');
+        const btnSaveSettings = document.getElementById('btnSaveSettings');
+        const inputApiKey = document.getElementById('inputApiKey');
+        const inputTopic = document.getElementById('inputTopic');
+        const selectModel = document.getElementById('selectModel');
+        const selectVoiceName = document.getElementById('selectVoiceName');
+
+        function refreshIcons() {
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        function syncTopicUI() {
+            const topic = inputTopic.value.trim() || 'Acupressure & Health Specialist';
+            homeTopicDesc.innerText = topic;
+            callActiveTopic.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ${topic}`;
+            refreshIcons();
+        }
+
+        /*
+           ========================================================================
+           STATE MACHINE & VISUALS
+           ========================================================================
+        */
+        function setTurnState(state) {
+            if (state === 'ai_speaking') {
+                isAISpeaking = true;
+                aiActivityCard.className = "bg-teal-950/50 border-2 border-teal-400 rounded-2xl p-2.5 flex flex-col items-center justify-between shadow-xl shadow-teal-950/60 scale-[1.02] transition-all duration-150";
+                aiVoiceDot.className = "w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping";
+                aiStatusText.innerText = "AI बोल रहा है...";
+                aiStatusText.className = "text-[10px] text-teal-300 font-bold truncate";
+
+                userActivityCard.className = "bg-black/40 border border-slate-800 rounded-2xl p-2.5 flex flex-col items-center justify-between opacity-40 grayscale transition-all duration-150";
+                userMicDot.className = "w-2 h-2 rounded-full bg-slate-600";
+                userStatusText.innerText = "AI बोल रहा है, सुनिए...";
+                userStatusText.className = "text-[10px] text-slate-400 truncate";
+                userBars.forEach(b => { b.style.height = "4px"; b.className = "w-1 bg-slate-700 rounded-full"; });
+
+                callStatusLabel.innerText = "AI बोल रहा है";
+                callSubState.innerText = "ह्यूमन वॉइस सुनिए...";
+                speakingDot.className = "w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping";
+                callRipple1.classList.remove('opacity-0');
+                callRipple2.classList.remove('opacity-0');
+            } else if (state === 'user_speaking') {
+                aiActivityCard.className = "bg-black/40 border border-slate-800 rounded-2xl p-2.5 flex flex-col items-center justify-between opacity-50 transition-all duration-150";
+                aiVoiceDot.className = "w-2 h-2 rounded-full bg-slate-600";
+                aiStatusText.innerText = "AI सुन रहा है...";
+                aiStatusText.className = "text-[10px] text-slate-400 truncate";
+                aiBars.forEach(b => { b.style.height = "4px"; b.className = "w-1 bg-slate-700 rounded-full"; });
+
+                userActivityCard.className = "bg-emerald-950/60 border-2 border-emerald-400 rounded-2xl p-2.5 flex flex-col items-center justify-between shadow-xl shadow-emerald-950/60 scale-[1.02] transition-all duration-100";
+                userMicDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping";
+                userStatusText.innerText = isMicMuted ? "माइक म्यूट है" : "आप बोल रहे हैं...";
+                userStatusText.className = "text-[10px] text-emerald-300 font-bold truncate";
+
+                callStatusLabel.innerText = "आपकी बारी है";
+                callSubState.innerText = "AI सुन रहा है... बोलिए";
+                speakingDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping";
+                callRipple1.classList.add('opacity-0');
+                callRipple2.classList.add('opacity-0');
+            }
+        }
+
+        /*
+           ========================================================================
+           GEMINI LIVE WEBSOCKET AUDIO STREAMING
+           ========================================================================
+        */
+        async function connectGeminiLiveWebSocket() {
+            const apiKey = inputApiKey.value.trim();
+            const model = selectModel.value || 'gemini-2.5-flash-native-audio';
+            const voice = selectVoiceName.value || 'Aoede';
+            const topic = inputTopic.value.trim() || 'Acupressure & Health Specialist';
+
+            // Gemini Multimodal Live API Bidirectional WebSocket URI
+            const wsUri = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${apiKey}`;
+
+            liveSocket = new WebSocket(wsUri);
+
+            liveSocket.onopen = () => {
+                callStatusLabel.innerText = "Connected";
+                callSubState.innerText = "कॉल लाइव है... नमस्ते बोलें";
+                setTurnState('user_speaking');
+
+                // 1. Send Handshake Setup Config
+                const setupMessage = {
+                    setup: {
+                        model: `models/${model}`,
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: {
+                                        voiceName: voice
+                                    }
+                                }
+                            }
+                        },
+                        systemInstruction: {
+                            parts: [{
+                                text: `You are a real-time conversational AI voice assistant on a telephone call.
+Your specialized topic is: "${topic}".
+Speak exclusively in warm, natural conversational Hindi or Hinglish.
+Keep responses concise (1 to 2 short natural sentences, max 25 words).
+Never use markdown or symbols because your output will be directly streamed into audio.
+Always greet the user warmly on the start of the call and ask how you can help.`
+                            }]
+                        }
+                    }
+                };
+                liveSocket.send(JSON.stringify(setupMessage));
+
+                // 2. Trigger initial greeting from model
+                setTimeout(() => {
+                    if (liveSocket && liveSocket.readyState === WebSocket.OPEN) {
+                        const initTrigger = {
+                            clientContent: {
+                                turns: [{
+                                    role: "user",
+                                    parts: [{ text: "Hello! Call has started. Greet me warmly in Hindi in 10-15 words." }]
+                                }],
+                                turnComplete: true
+                            }
+                        };
+                        liveSocket.send(JSON.stringify(initTrigger));
+                    }
+                }, 300);
+            };
+
+            liveSocket.onmessage = async (event) => {
+                try {
+                    let responseData;
+                    if (event.data instanceof Blob) {
+                        const text = await event.data.text();
+                        responseData = JSON.parse(text);
+                    } else {
+                        responseData = JSON.parse(event.data);
+                    }
+
+                    // Handle incoming server audio chunks
+                    if (responseData.serverContent && responseData.serverContent.modelTurn) {
+                        const parts = responseData.serverContent.modelTurn.parts || [];
+                        for (const part of parts) {
+                            if (part.inlineData && part.inlineData.mimeType.startsWith('audio/pcm') && part.inlineData.data) {
+                                playRawPCMChunk(part.inlineData.data);
+                            }
+                        }
+                    }
+
+                    if (responseData.serverContent && responseData.serverContent.turnComplete) {
+                        // AI turn finished, ready for user
+                        clearTimeout(aiSilenceCheckTimeout);
+                        aiSilenceCheckTimeout = setTimeout(() => {
+                            isAISpeaking = false;
+                            setTurnState('user_speaking');
+                        }, 500);
+                    }
+                } catch (err) {
+                    console.error("Live Socket message parse error:", err);
+                }
+            };
+
+            liveSocket.onerror = (err) => {
+                console.error("Live Socket error:", err);
+                callStatusLabel.innerText = "Connection Error";
+                callSubState.innerText = "API Key या मॉडल की जांच करें";
+            };
+
+            liveSocket.onclose = () => {
+                if (isCallActive) {
+                    terminateCall();
+                }
+            };
+        }
+
+        // Play 24,000Hz PCM 16-bit audio directly through Web Audio API
+        function playRawPCMChunk(base64Data) {
+            if (!audioContext || audioContext.state === 'closed') return;
+            setTurnState('ai_speaking');
+
+            const binaryString = atob(base64Data);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+
+            const pcm16 = new Int16Array(bytes.buffer);
+            const sampleRate = 24000;
+            const audioBuffer = audioContext.createBuffer(1, pcm16.length, sampleRate);
+            const channelData = audioBuffer.getChannelData(0);
+
+            for (let i = 0; i < pcm16.length; i++) {
+                channelData[i] = pcm16[i] / 32768.0;
+            }
+
+            const source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(audioContext.destination);
+
+            const currentTime = audioContext.currentTime;
+            if (nextPlayTime < currentTime) {
+                nextPlayTime = currentTime;
+            }
+
+            source.start(nextPlayTime);
+            nextPlayTime += audioBuffer.duration;
+
+            clearTimeout(aiSilenceCheckTimeout);
+            aiSilenceCheckTimeout = setTimeout(() => {
+                isAISpeaking = false;
+                setTurnState('user_speaking');
+            }, (nextPlayTime - currentTime + 0.3) * 1000);
+        }
+
+        // Downsample input to 16,000Hz PCM 16-bit and stream to Gemini Live
+        function setupMicrophoneStreaming() {
+            audioInputSource = audioContext.createMediaStreamSource(micStream);
+            userAnalyser = audioContext.createAnalyser();
+            userAnalyser.fftSize = 64;
+
+            // 4096 buffer size provides steady audio chunk stream
+            scriptProcessor = audioContext.createScriptProcessor(4096, 1, 1);
+
+            audioInputSource.connect(userAnalyser);
+            audioInputSource.connect(scriptProcessor);
+            scriptProcessor.connect(audioContext.destination);
+
+            scriptProcessor.onaudioprocess = (e) => {
+                if (!isCallActive || isMicMuted || isAISpeaking) return;
+                if (!liveSocket || liveSocket.readyState !== WebSocket.OPEN) return;
+
+                const inputFloat32 = e.inputBuffer.getChannelData(0);
+                const inputSampleRate = audioContext.sampleRate;
+                const targetSampleRate = 16000;
+
+                // Simple Linear Interpolation Downsampling to 16kHz
+                const ratio = inputSampleRate / targetSampleRate;
+                const newLength = Math.round(inputFloat32.length / ratio);
+                const pcm16Data = new Int16Array(newLength);
+
+                for (let i = 0; i < newLength; i++) {
+                    const originIndex = Math.min(Math.round(i * ratio), inputFloat32.length - 1);
+                    const s = Math.max(-1, Math.min(1, inputFloat32[originIndex]));
+                    pcm16Data[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+                }
+
+                // Convert to Base64
+                let binary = '';
+                const bytes = new Uint8Array(pcm16Data.buffer);
+                const byteLen = bytes.byteLength;
+                for (let i = 0; i < byteLen; i++) {
+                    binary += String.fromCharCode(bytes[i]);
+                }
+                const base64Audio = btoa(binary);
+
+                // Stream Realtime Audio Chunk to Gemini Live API
+                const realtimeInputMsg = {
+                    realtimeInput: {
+                        mediaChunks: [{
+                            mimeType: "audio/pcm;rate=16000",
+                            data: base64Audio
+                        }]
+                    }
+                };
+                liveSocket.send(JSON.stringify(realtimeInputMsg));
+            };
+        }
+
+        /*
+           ========================================================================
+           WAVEFORM VISUALIZER
+           ========================================================================
+        */
+        function startVisualizerLoop() {
+            const freqData = new Uint8Array(32);
+
+            function draw() {
+                if (!isCallActive) return;
+
+                if (isAISpeaking) {
+                    const now = Date.now();
+                    aiBars.forEach((bar, idx) => {
+                        const wave = Math.sin((now / 110) + (idx * 0.95)) * 0.5 + 0.5;
+                        const h = 5 + (wave * 22);
+                        bar.style.height = `${h}px`;
+                        bar.className = "w-1 bg-teal-400 rounded-full transition-all duration-75";
+                    });
+                    userBars.forEach(bar => { bar.style.height = "4px"; });
+                } else {
+                    if (userAnalyser && !isMicMuted) {
+                        userAnalyser.getByteFrequencyData(freqData);
+                        userBars.forEach((bar, idx) => {
+                            const val = freqData[idx * 2] || 0;
+                            const h = Math.min(26, Math.max(4, (val / 255) * 28));
+                            bar.style.height = `${h}px`;
+                            bar.className = "w-1 bg-emerald-400 rounded-full transition-all duration-75";
+                        });
+                    }
+                    aiBars.forEach(bar => { bar.style.height = "4px"; });
+                }
+
+                visualizerAnimId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        function startCallTimer() {
+            callSeconds = 0;
+            liveCallTimer.innerText = "00:00";
+            clearInterval(callTimerInterval);
+            callTimerInterval = setInterval(() => {
+                callSeconds++;
+                const m = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+                const s = String(callSeconds % 60).padStart(2, '0');
+                liveCallTimer.innerText = `${m}:${s}`;
+            }, 1000);
+        }
+
+        function stopCallTimer() {
+            clearInterval(callTimerInterval);
+        }
+
+        /*
+           ========================================================================
+           CALL SETUP & TERMINATION
+           ========================================================================
+        */
+        async function initiateCall() {
+            const apiKey = inputApiKey.value.trim();
+            if (!apiKey) {
+                settingsModal.classList.remove('hidden');
+                return;
+            }
+
+            btnStartCallNow.classList.add('opacity-70', 'pointer-events-none');
+            refreshIcons();
+
+            try {
+                micStream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        channelCount: 1,
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        autoGainControl: true,
+                    }
+                });
+
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioContext.state === 'suspended') {
+                    await audioContext.resume();
+                }
+            } catch (err) {
+                btnStartCallNow.classList.remove('opacity-70', 'pointer-events-none');
+                refreshIcons();
+                alert("कॉल करने के लिए माइक्रोफोन की अनुमति आवश्यक है।");
+                return;
+            }
+
+            btnStartCallNow.classList.remove('opacity-70', 'pointer-events-none');
+            isCallActive = true;
+            isMicMuted = false;
+            nextPlayTime = 0;
+
+            callingScreen.classList.remove('hidden');
+            homeScreen.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => homeScreen.classList.add('hidden'), 250);
+
+            startCallTimer();
+            startVisualizerLoop();
+            setupMicrophoneStreaming();
+            connectGeminiLiveWebSocket();
+            syncTopicUI();
+            refreshIcons();
+        }
+
+        function terminateCall() {
+            isCallActive = false;
+            isAISpeaking = false;
+            stopCallTimer();
+
+            if (aiSilenceCheckTimeout) clearTimeout(aiSilenceCheckTimeout);
+            if (visualizerAnimId) cancelAnimationFrame(visualizerAnimId);
+
+            if (liveSocket) {
+                try { liveSocket.close(); } catch (e) {}
+                liveSocket = null;
+            }
+
+            if (scriptProcessor) {
+                try { scriptProcessor.disconnect(); } catch (e) {}
+                scriptProcessor = null;
+            }
+
+            if (audioInputSource) {
+                try { audioInputSource.disconnect(); } catch (e) {}
+                audioInputSource = null;
+            }
+
+            if (userAnalyser) {
+                try { userAnalyser.disconnect(); } catch (e) {}
+                userAnalyser = null;
+            }
+
+            if (audioContext) {
+                try { audioContext.close(); } catch (e) {}
+                audioContext = null;
+            }
+
+            if (micStream) {
+                micStream.getTracks().forEach(track => {
+                    try {
+                        track.stop();
+                        track.enabled = false;
+                    } catch (e) {}
+                });
+                micStream = null;
+            }
+
+            homeScreen.classList.remove('hidden');
+            setTimeout(() => homeScreen.classList.remove('opacity-0', 'pointer-events-none'), 50);
+            callingScreen.classList.add('hidden');
+
+            refreshIcons();
+        }
+
+        // Event Listeners
+        btnStartCallNow.addEventListener('click', initiateCall);
+        btnHangUp.addEventListener('click', terminateCall);
+        btnMinimizeCall.addEventListener('click', terminateCall);
+
+        btnCallMic.addEventListener('click', () => {
+            isMicMuted = !isMicMuted;
+            if (isMicMuted) {
+                micIcon.setAttribute('data-lucide', 'mic-off');
+                micLabel.innerText = "अनम्यूट";
+                micBtnCircle.classList.add('bg-rose-500/30', 'text-rose-400');
+            } else {
+                micIcon.setAttribute('data-lucide', 'mic');
+                micLabel.innerText = "म्यूट";
+                micBtnCircle.classList.remove('bg-rose-500/30', 'text-rose-400');
+            }
+            refreshIcons();
+        });
+
+        // Settings Modal Wiring
+        btnHomeSettings.addEventListener('click', () => settingsModal.classList.remove('hidden'));
+        btnCloseSettingsModal.addEventListener('click', () => settingsModal.classList.add('hidden'));
+
+        btnSaveSettings.addEventListener('click', () => {
+            localStorage.setItem('gemini_live_api_key', inputApiKey.value.trim());
+            localStorage.setItem('gemini_live_topic', inputTopic.value.trim());
+            localStorage.setItem('gemini_live_model', selectModel.value);
+            localStorage.setItem('gemini_live_voice', selectVoiceName.value);
+
+            syncTopicUI();
+            btnSaveSettings.innerHTML = `<i data-lucide="check-check" class="w-4 h-4"></i> Saved!`;
+            refreshIcons();
+            setTimeout(() => {
+                btnSaveSettings.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Save & Apply`;
+                settingsModal.classList.add('hidden');
+                refreshIcons();
+            }, 600);
+        });
+
+        // Initialization
+        window.addEventListener('load', () => {
+            const savedKey = localStorage.getItem('gemini_live_api_key') || '';
+            const savedTopic = localStorage.getItem('gemini_live_topic') || 'Acupressure & Health Specialist';
+            const savedModel = localStorage.getItem('gemini_live_model') || 'gemini-2.5-flash-native-audio';
+            const savedVoice = localStorage.getItem('gemini_live_voice') || 'Aoede';
+
+            inputApiKey.value = savedKey;
+            inputTopic.value = savedTopic;
+            selectModel.value = savedModel;
+            selectVoiceName.value = savedVoice;
+
+            syncTopicUI();
+            refreshIcons();
+
+            if (!savedKey) {
+                document.getElementById('apiKeyDot').classList.remove('hidden');
+                setTimeout(() => settingsModal.classList.remove('hidden'), 500);
+            }
+        });
+    </script>
+</body>
+</html>
