@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aarogya Acupressure AI - WhatsApp Voice Assistant</title>
+    <title>Gemini Live Native Audio Assistant</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -70,7 +70,7 @@
     <div class="relative w-full h-full md:max-w-md md:h-[94vh] md:max-h-[860px] bg-waDark md:rounded-[36px] md:shadow-2xl md:border md:border-slate-800 flex flex-col overflow-hidden">
         
         <!-- ============================================== -->
-        <!-- SCREEN 1: WHATSAPP HOME / DOCTOR PROFILE SCREEN -->
+        <!-- SCREEN 1: WHATSAPP HOME SCREEN                 -->
         <!-- ============================================== -->
         <div id="homeScreen" class="flex-1 flex flex-col chat-bg relative z-10 transition-opacity duration-300">
             
@@ -78,29 +78,25 @@
             <header class="bg-waHeader px-4 py-3 flex items-center justify-between border-b border-white/5 shadow-md">
                 <div class="flex items-center space-x-3">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1594824813583-780c85c25a77?auto=format&fit=crop&q=80&w=150" 
-                             alt="Doctor Avatar" 
-                             class="w-10 h-10 rounded-full object-cover border-2 border-waGreen"
-                             onerror="this.src='https://placehold.co/150x150/00a884/ffffff?text=Dr.+Aarogya'">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white font-bold border-2 border-waGreen shadow">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                        </div>
                         <span class="absolute bottom-0 right-0 w-3 h-3 bg-waAccent rounded-full border-2 border-waHeader"></span>
                     </div>
                     <div>
                         <h1 class="text-sm font-bold text-white flex items-center gap-1.5">
-                            डॉ. आरोग्य (Acupressure Specialist)
+                            Gemini Live Voice AI
                             <i data-lucide="check-check" class="w-4 h-4 text-sky-400"></i>
                         </h1>
                         <p class="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            Online • Ready for Voice Call
+                            Online • Native Audio Stream
                         </p>
                     </div>
                 </div>
 
                 <div class="flex items-center space-x-1">
-                    <button id="btnOpenPointsModal" title="एक्यूप्रेशर चार्ट" class="p-2 rounded-full hover:bg-white/10 text-slate-300 transition">
-                        <i data-lucide="book-open" class="w-5 h-5"></i>
-                    </button>
-                    <button id="btnHomeSettings" title="API Settings" class="p-2 rounded-full hover:bg-white/10 text-slate-300 transition relative">
+                    <button id="btnHomeSettings" title="API Settings & Topic" class="p-2 rounded-full hover:bg-white/10 text-slate-300 transition relative">
                         <i data-lucide="settings" class="w-5 h-5"></i>
                         <span id="apiKeyDot" class="hidden absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500"></span>
                     </button>
@@ -110,43 +106,38 @@
             <!-- Home Content Area -->
             <div class="flex-1 overflow-y-auto p-4 flex flex-col justify-between">
                 
-                <!-- Doctor Card -->
+                <!-- Main Profile Card -->
                 <div class="bg-waPanel/90 backdrop-blur-md rounded-2xl p-5 border border-slate-700/60 shadow-lg text-center mt-2">
                     <div class="relative inline-block mx-auto mb-3">
-                        <img src="https://images.unsplash.com/photo-1594824813583-780c85c25a77?auto=format&fit=crop&q=80&w=260" 
-                             alt="Dr. Aarogya" 
-                             class="w-24 h-24 rounded-full object-cover mx-auto border-2 border-waGreen p-0.5 shadow-md">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-emerald-600 via-teal-500 to-waAccent flex items-center justify-center text-white mx-auto border-2 border-waGreen p-0.5 shadow-md">
+                            <i data-lucide="radio" class="w-10 h-10 text-white"></i>
+                        </div>
                         <span class="absolute bottom-1 right-1 bg-waGreen text-white rounded-full p-1.5 shadow">
                             <i data-lucide="phone" class="w-3.5 h-3.5"></i>
                         </span>
                     </div>
 
-                    <h2 class="text-xl font-bold text-white tracking-tight">डॉ. आरोग्य (Acupressure AI)</h2>
-                    <p class="text-xs text-slate-300 mt-1 font-medium">100% लाइव फोन कॉल • नेचुरल आत्मीय हिंदी बातचीत</p>
+                    <h2 class="text-xl font-bold text-white tracking-tight">Gemini Live Native Audio</h2>
+                    <p class="text-xs text-slate-300 mt-1 font-medium">100% डायरेक्ट Gemini Voice • कोई ब्राउज़र TTS नहीं</p>
 
-                    <!-- Trust Tags -->
+                    <!-- Feature Tags -->
                     <div class="flex flex-wrap items-center justify-center gap-1.5 mt-4">
                         <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] text-emerald-300 font-medium flex items-center gap-1">
-                            <i data-lucide="zap" class="w-3 h-3 text-emerald-400"></i> Hybrid Fast Voice Engine
+                            <i data-lucide="zap" class="w-3 h-3 text-emerald-400"></i> Bidirectional PCM WebSocket
                         </span>
                         <span class="px-2.5 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-[11px] text-teal-300 font-medium">
-                            👩‍⚕️ नेचुरल इंडियन महिला आवाज़
+                            🎙️ Gemini Native Voices
                         </span>
                         <span class="px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-[11px] text-amber-300 font-medium">
-                            ⚡ Zero Stall Auto-Handover
+                            ⚡ Zero Robotic Latency
                         </span>
                     </div>
 
                     <div class="mt-4 p-3.5 bg-black/40 rounded-xl text-left border border-white/5 text-[11px] text-slate-300 space-y-1.5">
                         <p class="text-emerald-400 font-semibold flex items-center gap-1">
-                            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> सीधी वॉयस कॉल सहायता
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> एक्टिव टॉपिक / रोल
                         </p>
-                        <p class="text-slate-300">• कोई टाइपिंग या रोबोटिक चैट नहीं, सीधे बात करें।</p>
-                        <p class="text-slate-300">• सिरदर्द (LI4), गैस व अपच (PC6), अनिद्रा (Yin Tang) का तुरंत समाधान।</p>
-                        <div class="pt-1 border-t border-white/5 flex items-center gap-1 text-[10px] text-emerald-400">
-                            <span class="text-slate-400">एक्टिव टॉपिक:</span>
-                            <span id="homeTopicDesc" class="font-medium truncate">Acupressure & Health Specialist</span>
-                        </div>
+                        <p id="homeTopicDesc" class="text-slate-200 font-medium">Acupressure Doctor & Health Specialist</p>
                     </div>
                 </div>
 
@@ -159,25 +150,14 @@
                     </button>
 
                     <div class="text-center mt-3">
-                        <span class="text-base font-bold text-waAccent tracking-wide">Call Now • कॉल करें</span>
-                        <p class="text-[11px] text-slate-400 mt-0.5">क्लिक करते ही कॉल जुड़ेगी और डॉक्टर बात करेंगी</p>
+                        <span class="text-base font-bold text-waAccent tracking-wide">Live Call Now • बात शुरू करें</span>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Gemini Live Audio API से सीधा संपर्क</p>
                     </div>
                 </div>
 
-                <!-- Acupressure Guide Bar -->
+                <!-- Guidance Footer -->
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                    <p class="text-[11px] text-slate-400 mb-1.5">कॉल पर तुरंत पूछें:</p>
-                    <div class="flex flex-wrap justify-center gap-1.5">
-                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-emerald-300 text-[11px] border border-white/5">
-                            सिरदर्द (LI4)
-                        </span>
-                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-emerald-300 text-[11px] border border-white/5">
-                            एसिडिटी व गैस (PC6)
-                        </span>
-                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-emerald-300 text-[11px] border border-white/5">
-                            तनाव व अनिद्रा (Yin Tang)
-                        </span>
-                    </div>
+                    <p class="text-[11px] text-slate-400">वॉइस या मॉडल बदलने के लिए ऊपर ⚙️ सेटिंग्स पर क्लिक करें</p>
                 </div>
 
             </div>
@@ -197,7 +177,7 @@
                 <div class="text-center">
                     <div class="flex items-center justify-center gap-1 text-[11px] text-slate-400">
                         <i data-lucide="lock" class="w-3 h-3 text-waGreen"></i>
-                        <span>End-to-End Encrypted</span>
+                        <span>Live Audio Pipeline</span>
                     </div>
                     <span id="callStatusLabel" class="text-xs font-semibold text-emerald-400 tracking-wide">Connecting...</span>
                 </div>
@@ -219,7 +199,7 @@
                     </div>
                 </div>
 
-                <h3 id="callActiveName" class="text-2xl font-bold text-white tracking-tight">AI Assistant</h3>
+                <h3 id="callActiveName" class="text-2xl font-bold text-white tracking-tight">Gemini Live</h3>
                 <p id="callActiveTopic" class="text-xs text-emerald-400 font-medium mt-1 flex items-center gap-1.5 max-w-[80%] truncate text-center">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Acupressure & Health Specialist
                 </p>
@@ -257,7 +237,7 @@
                     <div id="aiActivityCard" class="bg-black/50 border border-slate-700/60 rounded-2xl p-2.5 flex flex-col items-center justify-between transition-all duration-200">
                         <div class="flex items-center gap-1.5 w-full justify-between">
                             <span class="text-[11px] font-semibold text-slate-300 flex items-center gap-1">
-                                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i> AI Assistant
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i> Gemini AI
                             </span>
                             <span id="aiVoiceDot" class="w-2 h-2 rounded-full bg-slate-500"></span>
                         </div>
@@ -279,7 +259,7 @@
                 <!-- Central Status Banner -->
                 <div class="mt-3.5 inline-flex items-center gap-2 px-4 py-1.5 bg-black/60 border border-slate-700/60 rounded-full text-xs text-slate-200 shadow-lg">
                     <span id="speakingDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span id="callSubState">कॉल जुड़ रही है...</span>
+                    <span id="callSubState">कॉल कनेक्ट हो रही है...</span>
                 </div>
             </div>
 
@@ -313,7 +293,7 @@
             <div class="w-full bg-waPanel border border-slate-700 rounded-2xl p-4 shadow-2xl">
                 <div class="flex items-center justify-between pb-2 border-b border-slate-700">
                     <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
-                        <i data-lucide="settings-2" class="w-4 h-4"></i> Voice & Assistant Settings
+                        <i data-lucide="settings-2" class="w-4 h-4"></i> Gemini Live Audio Settings
                     </h3>
                     <button id="btnCloseSettingsModal" class="text-slate-400 hover:text-white">
                         <i data-lucide="x" class="w-5 h-5"></i>
@@ -325,30 +305,31 @@
                         <label class="block text-xs text-slate-300 font-medium mb-1">Gemini API Key</label>
                         <input type="password" id="inputApiKey" placeholder="AIzaSy..." 
                                class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                        <p class="text-[10px] text-slate-400 mt-1">Google AI Studio की Key दर्ज करें। Key आपके ब्राउज़र में सुरक्षित रहेगी।</p>
+                        <p class="text-[10px] text-slate-400 mt-1">Google AI Studio की Key डालें। यह ब्राउज़र के LocalStorage में सुरक्षित रहेगी।</p>
                     </div>
 
                     <div>
-                        <label class="block text-xs text-slate-300 font-medium mb-1">Topic / Assistant Role</label>
-                        <textarea id="inputTopic" rows="2" placeholder="Udaharan: Acupressure Doctor, General Health Coach, English Practice..." 
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Topic / Role</label>
+                        <textarea id="inputTopic" rows="2" placeholder="Udaharan: Acupressure Doctor & Reflexology Specialist..." 
                                   class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"></textarea>
-                        <p class="text-[10px] text-slate-400 mt-0.5">आप जो भी टॉपिक लिखेंगे, AI उसी हिसाब से बात करेगा।</p>
                     </div>
 
                     <div>
-                        <label class="block text-xs text-slate-300 font-medium mb-1">AI Model</label>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Live Audio Model</label>
                         <select id="selectModel" class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                            <option value="gemini-3.5-flash-lite" selected>gemini-3.5-flash-lite (अल्ट्रा-फास्ट • 500 RPD मुफ़्त कोटा)</option>
-                            <option value="gemini-3.8-flash">gemini-3.8-flash (लेटेस्ट फ्लैश मॉडल)</option>
+                            <option value="gemini-2.0-flash-exp" selected>gemini-2.0-flash-exp (Fast Native Audio)</option>
+                            <option value="gemini-2.5-flash-native-audio-preview-12-2025">gemini-2.5-flash-native-audio-preview</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-xs text-slate-300 font-medium mb-1">आवाज़ की गति (Voice Speed)</label>
-                        <select id="selectVoiceSpeed" class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                            <option value="0.95" selected>प्राकृतिक व शांत (0.95x)</option>
-                            <option value="1.0">सामान्य (Normal 1.0x)</option>
-                            <option value="1.05">हल्की तेज़ (1.05x)</option>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Gemini Live Voice Persona</label>
+                        <select id="selectVoiceName" class="w-full bg-black/50 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            <option value="Aoede" selected>Aoede (सुरीली और शांत - Female)</option>
+                            <option value="Kore">Kore (आत्मविश्वासी और स्पष्ट - Female)</option>
+                            <option value="Puck">Puck (ऊर्जावान और मित्रवत - Male)</option>
+                            <option value="Fenrir">Fenrir (शांत और गंभीर - Male)</option>
+                            <option value="Zephyr">Zephyr (संतुलित - Neutral)</option>
                         </select>
                     </div>
 
@@ -361,28 +342,27 @@
 
     </div>
 
-    <!-- Application Script: Ultra-Reliable Conversational Engine -->
+    <!-- Application Script: Pure Gemini Live Native Audio over WebSocket -->
     <script>
         let isCallActive = false;
         let isMicMuted = false;
         let callSeconds = 0;
         let callTimerInterval = null;
 
-        // Audio Stream & Web Speech
+        // WebSocket & Web Audio Engine
+        let liveSocket = null;
+        let inputAudioCtx = null;
+        let outputAudioCtx = null;
         let micStream = null;
-        let audioCtx = null;
-        let analyser = null;
+        let scriptProcessor = null;
+        let micSource = null;
+        let userAnalyser = null;
         let visualizerAnimId = null;
 
-        let recognition = null;
-        let isRecognitionActive = false;
-        let speechAccumulator = '';
-        let speechSilenceTimer = null;
-        const SPEECH_PAUSE_DELAY = 1200; // 1.2s of silence confirms user finished turn
-
-        let conversationHistory = [];
-        let ttsKeepAliveInterval = null;
+        // Gapless Audio Playback Cursor & State
+        let nextPlayTime = 0;
         let isAISpeaking = false;
+        let aiSilenceCheckTimeout = null;
 
         // UI references
         const homeScreen = document.getElementById('homeScreen');
@@ -437,7 +417,7 @@
         const inputApiKey = document.getElementById('inputApiKey');
         const inputTopic = document.getElementById('inputTopic');
         const selectModel = document.getElementById('selectModel');
-        const selectVoiceSpeed = document.getElementById('selectVoiceSpeed');
+        const selectVoiceName = document.getElementById('selectVoiceName');
 
         function refreshIcons() {
             if (window.lucide) window.lucide.createIcons();
@@ -445,28 +425,22 @@
 
         function syncTopicUI() {
             const topic = (inputTopic && inputTopic.value.trim()) || 'Acupressure & Health Specialist';
-            if (homeTopicDesc) {
-                homeTopicDesc.innerText = topic;
-            }
-            if (callActiveTopic) {
-                callActiveTopic.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ${topic}`;
-            }
+            if (homeTopicDesc) homeTopicDesc.innerText = topic;
+            if (callActiveTopic) callActiveTopic.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ${topic}`;
             refreshIcons();
         }
 
         /*
            ========================================================================
-           STATE MACHINE (MUTUAL EXCLUSION)
+           STATE MACHINE (SYNCING USER & AI SPEAKING STATES)
            ========================================================================
         */
         function setTurnState(state) {
             if (state === 'ai_speaking') {
                 isAISpeaking = true;
-                pauseSpeechRecognition();
-
                 aiActivityCard.className = "bg-teal-950/50 border-2 border-teal-400 rounded-2xl p-2.5 flex flex-col items-center justify-between shadow-xl shadow-teal-950/60 scale-[1.02] transition-all duration-150";
                 aiVoiceDot.className = "w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping";
-                aiStatusText.innerText = "AI बोल रहा है...";
+                aiStatusText.innerText = "Gemini बोल रहा है...";
                 aiStatusText.className = "text-[10px] text-teal-300 font-bold truncate";
 
                 userActivityCard.className = "bg-black/40 border border-slate-800 rounded-2xl p-2.5 flex flex-col items-center justify-between opacity-40 grayscale transition-all duration-150";
@@ -475,12 +449,12 @@
                 userStatusText.className = "text-[10px] text-slate-400 truncate";
                 userBars.forEach(b => { b.style.height = "4px"; b.className = "w-1 bg-slate-700 rounded-full"; });
 
-                callStatusLabel.innerText = "AI बोल रहा है";
-                callSubState.innerText = "आत्मीयता से सुनें...";
+                callStatusLabel.innerText = "Gemini बोल रहा है";
+                callSubState.innerText = "नेचुरल आवाज़ सुनिए...";
                 speakingDot.className = "w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping";
                 callRipple1.classList.remove('opacity-0');
                 callRipple2.classList.remove('opacity-0');
-            } else if (state === 'user_turn') {
+            } else if (state === 'user_speaking') {
                 isAISpeaking = false;
                 callRipple1.classList.add('opacity-0');
                 callRipple2.classList.add('opacity-0');
@@ -491,313 +465,251 @@
                 aiStatusText.className = "text-[10px] text-slate-400 truncate";
                 aiBars.forEach(b => { b.style.height = "4px"; b.className = "w-1 bg-slate-600 rounded-full"; });
 
-                userActivityCard.className = "bg-emerald-950/30 border-2 border-emerald-500/70 rounded-2xl p-2.5 flex flex-col items-center justify-between transition-all duration-150";
-                userMicDot.className = "w-2 h-2 rounded-full bg-emerald-400";
-                userStatusText.innerText = isMicMuted ? "माइक म्यूट है" : "आपकी बारी है, बोलिए...";
-                userStatusText.className = "text-[10px] text-emerald-300 font-medium truncate";
-
-                callStatusLabel.innerText = "आपकी बारी है";
-                callSubState.innerText = "माइक्रोफ़ोन सक्रिय है... बोलिए";
-                speakingDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping";
-
-                resumeSpeechRecognition();
-            } else if (state === 'user_speaking') {
                 userActivityCard.className = "bg-emerald-950/60 border-2 border-emerald-400 rounded-2xl p-2.5 flex flex-col items-center justify-between shadow-xl shadow-emerald-950/60 scale-[1.02] transition-all duration-100";
                 userMicDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping";
-                userStatusText.innerText = "आप बोल रहे हैं...";
+                userStatusText.innerText = isMicMuted ? "माइक म्यूट है" : "आप बोल रहे हैं...";
                 userStatusText.className = "text-[10px] text-emerald-300 font-bold truncate";
 
-                aiActivityCard.className = "bg-black/40 border border-slate-800 rounded-2xl p-2.5 flex flex-col items-center justify-between opacity-50 transition-all duration-150";
-                aiVoiceDot.className = "w-2 h-2 rounded-full bg-slate-600";
-                aiStatusText.innerText = "AI सुन रहा है...";
-                aiStatusText.className = "text-[10px] text-slate-400 truncate";
-                aiBars.forEach(b => { b.style.height = "4px"; b.className = "w-1 bg-slate-700 rounded-full"; });
-
-                callStatusLabel.innerText = "आप बोल रहे हैं";
-                callSubState.innerText = "AI ध्यान से सुन रहा है...";
+                callStatusLabel.innerText = "आपकी बारी है";
+                callSubState.innerText = "माइक्रोफ़ोन लाइव है... बोलिए";
                 speakingDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping";
-            } else if (state === 'ai_thinking') {
-                pauseSpeechRecognition();
-
-                userActivityCard.className = "bg-black/50 border border-slate-700/60 rounded-2xl p-2.5 flex flex-col items-center justify-between opacity-60 transition-all duration-150";
-                userMicDot.className = "w-2 h-2 rounded-full bg-slate-500";
-                userStatusText.innerText = "सुन लिया गया";
-                userStatusText.className = "text-[10px] text-slate-400 truncate";
-                userBars.forEach(b => { b.style.height = "4px"; b.className = "w-1 bg-slate-600 rounded-full"; });
-
-                aiActivityCard.className = "bg-teal-950/40 border-2 border-teal-500/50 rounded-2xl p-2.5 flex flex-col items-center justify-between transition-all duration-150";
-                aiVoiceDot.className = "w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse";
-                aiStatusText.innerText = "विचार कर रहा है...";
-                aiStatusText.className = "text-[10px] text-cyan-300 font-semibold truncate";
-
-                callStatusLabel.innerText = "AI विचार कर रहा है...";
-                callSubState.innerText = "सटीक उत्तर तैयार हो रहा है...";
-                speakingDot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping";
             }
         }
 
         /*
            ========================================================================
-           SPEECH RECOGNITION (PERSISTENT & RESILIENT)
+           GEMINI MULTIMODAL LIVE WEBSOCKET PIPELINE
            ========================================================================
         */
-        function initNativeSpeechRecognition() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                alert("Web Speech API not supported on this browser. Please use Chrome.");
-                return;
-            }
-
-            recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
-            recognition.lang = 'hi-IN';
-
-            recognition.onstart = () => {
-                isRecognitionActive = true;
-            };
-
-            recognition.onresult = (event) => {
-                if (!isCallActive || isMicMuted || isAISpeaking) return;
-
-                let currentInterim = '';
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        speechAccumulator += ' ' + transcript;
-                    } else {
-                        currentInterim += transcript;
-                    }
-                }
-
-                const totalSpoken = (speechAccumulator + ' ' + currentInterim).trim();
-
-                if (totalSpoken.length > 0) {
-                    setTurnState('user_speaking');
-
-                    if (speechSilenceTimer) clearTimeout(speechSilenceTimer);
-                    speechSilenceTimer = setTimeout(() => {
-                        const finalUtterance = (speechAccumulator + ' ' + currentInterim).trim();
-                        if (finalUtterance.length > 0 && isCallActive && !isAISpeaking) {
-                            speechAccumulator = '';
-                            handleUserSpeechFinished(finalUtterance);
-                        }
-                    }, SPEECH_PAUSE_DELAY);
-                }
-            };
-
-            recognition.onerror = (e) => {
-                if (e.error !== 'no-speech' && e.error !== 'aborted') {
-                    console.warn("Speech recognition notice:", e.error);
-                }
-            };
-
-            // CRITICAL BUGFIX: Never abort the call on recognition end; silently revive it.
-            recognition.onend = () => {
-                isRecognitionActive = false;
-                if (isCallActive && !isAISpeaking && !isMicMuted) {
-                    try {
-                        recognition.start();
-                    } catch (e) {}
-                }
-            };
-        }
-
-        function resumeSpeechRecognition() {
-            if (!recognition || isMicMuted || !isCallActive || isAISpeaking) return;
-            speechAccumulator = '';
-            if (!isRecognitionActive) {
-                try {
-                    recognition.start();
-                } catch (e) {}
-            }
-        }
-
-        function pauseSpeechRecognition() {
-            if (recognition && isRecognitionActive) {
-                try {
-                    recognition.stop();
-                } catch (e) {}
-            }
-            if (speechSilenceTimer) clearTimeout(speechSilenceTimer);
-            speechAccumulator = '';
-        }
-
-        /*
-           ========================================================================
-           GEMINI FLASH CONVERSATIONAL PROCESSING
-           ========================================================================
-        */
-        async function handleUserSpeechFinished(userText) {
-            if (!isCallActive) return;
-
-            setTurnState('ai_thinking');
-
+        function connectLiveWebSocket() {
             const apiKey = inputApiKey.value.trim();
-            const model = selectModel.value || 'gemini-3.5-flash-lite';
+            const model = selectModel.value || 'gemini-2.0-flash-exp';
+            const voice = selectVoiceName.value || 'Aoede';
+            const topic = inputTopic.value.trim() || 'Acupressure Doctor & Health Specialist';
 
-            if (!apiKey) {
-                speakAIResponse("कृपया ऊपर सेटिंग्स में जाकर अपनी Gemini API key दर्ज करें।");
-                return;
-            }
+            // Google Gemini Live Multimodal WebSocket Endpoint
+            const wsUri = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${apiKey}`;
 
-            conversationHistory.push({ role: "user", parts: [{ text: userText }] });
-
-            if (conversationHistory.length > 8) {
-                conversationHistory = conversationHistory.slice(-8);
-            }
-
-            const payload = {
-                contents: conversationHistory,
-                systemInstruction: {
-                    parts: [{ text: getSystemPrompt() }]
-                },
-                generationConfig: {
-                    maxOutputTokens: 90,
-                    temperature: 0.65,
-                }
-            };
+            callStatusLabel.innerText = "Connecting...";
+            callSubState.innerText = "लाइव सॉकेट जुड़ रहा है...";
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errData = await response.json();
-                    throw new Error(errData?.error?.message || `HTTP ${response.status}`);
-                }
-
-                const data = await response.json();
-                const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                if (aiReply && isCallActive) {
-                    conversationHistory.push({ role: "model", parts: [{ text: aiReply }] });
-                    speakAIResponse(aiReply);
-                } else {
-                    speakAIResponse("माफ़ कीजियेगा, क्या आप अपनी बात एक बार फिर बताएंगे?");
-                }
+                liveSocket = new WebSocket(wsUri);
             } catch (err) {
-                console.error("Gemini API Error:", err);
-                if (isCallActive) {
-                    speakAIResponse("नेटवर्क में हल्की रुकावट है। आप एक बार फिर बोलें, मैं सुन रहा हूँ।");
-                }
-            }
-        }
-
-        async function triggerInitialGreeting() {
-            const apiKey = inputApiKey.value.trim();
-            const model = selectModel.value || 'gemini-3.5-flash-lite';
-            const topic = inputTopic.value.trim() || 'Acupressure & Health Specialist';
-
-            if (!apiKey) {
-                speakAIResponse("नमस्ते! कॉल शुरू करने के लिए कृपया ऊपर सेटिंग्स में अपनी API Key दर्ज करें।");
+                console.error("WebSocket setup error:", err);
+                callStatusLabel.innerText = "Connection Failed";
+                callSubState.innerText = err.message;
                 return;
             }
 
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [
-                            { role: 'user', parts: [{ text: `Hello! Greet the user warmly on phone call in natural conversational Hindi in 15-20 words regarding the topic "${topic}". Ask how you can help.` }] }
-                        ],
-                        systemInstruction: { parts: [{ text: getSystemPrompt() }] },
-                        generationConfig: { maxOutputTokens: 60, temperature: 0.7 }
-                    })
-                });
+            liveSocket.onopen = () => {
+                callStatusLabel.innerText = "Connected";
+                callSubState.innerText = "कॉल लाइव है... नमस्ते बोलें";
+                setTurnState('user_speaking');
 
-                const data = await response.json();
-                const greeting = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                // 1. Send Handshake Setup Configuration
+                const setupPayload = {
+                    setup: {
+                        model: `models/${model}`,
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: {
+                                        voiceName: voice
+                                    }
+                                }
+                            }
+                        },
+                        systemInstruction: {
+                            parts: [{
+                                text: `You are Dr. Aarogya, an authentic and compassionate voice calling assistant on a direct telephone call.
+Your specialized topic is: "${topic}".
+Call Guidelines:
+1. Speak exclusively in warm, natural conversational Hindi or Hinglish.
+2. Keep replies ultra-concise (strictly 1 to 2 short sentences, maximum 25 words).
+3. Directly answer or assist with helpful, actionable advice.
+4. Always end with 1 short, engaging check-in question to keep the conversation flowing naturally.
+5. Strictly do not use any asterisks, markdown, bullets, or emojis as this is a pure spoken voice call.
+Greet the user warmly immediately on start of call in 15 words.`
+                            }]
+                        }
+                    }
+                };
 
-                if (greeting && isCallActive) {
-                    conversationHistory.push({ role: "model", parts: [{ text: greeting }] });
-                    speakAIResponse(greeting);
-                } else {
-                    speakAIResponse(`नमस्ते! मैं आपका वॉयस असिस्टेंट हूँ। बताइए आज मैं आपकी क्या सहायता करूँ?`);
+                liveSocket.send(JSON.stringify(setupPayload));
+
+                // 2. Trigger initial greeting from model
+                setTimeout(() => {
+                    if (liveSocket && liveSocket.readyState === WebSocket.OPEN) {
+                        const initTrigger = {
+                            clientContent: {
+                                turns: [{
+                                    role: "user",
+                                    parts: [{ text: "Hello! Call has started. Please greet me warmly in Hindi in 10-15 words." }]
+                                }],
+                                turnComplete: true
+                            }
+                        };
+                        liveSocket.send(JSON.stringify(initTrigger));
+                    }
+                }, 400);
+            };
+
+            liveSocket.onmessage = async (event) => {
+                try {
+                    let msg;
+                    if (event.data instanceof Blob) {
+                        const txt = await event.data.text();
+                        msg = JSON.parse(txt);
+                    } else {
+                        msg = JSON.parse(event.data);
+                    }
+
+                    // Process native audio parts returned by Gemini Live
+                    if (msg.serverContent && msg.serverContent.modelTurn) {
+                        const parts = msg.serverContent.modelTurn.parts || [];
+                        for (const part of parts) {
+                            if (part.inlineData && part.inlineData.mimeType.startsWith('audio/pcm') && part.inlineData.data) {
+                                playRawPCMChunk(part.inlineData.data);
+                            }
+                        }
+                    }
+
+                    // User barge-in interrupt handling
+                    if (msg.serverContent && msg.serverContent.interrupted) {
+                        nextPlayTime = outputAudioCtx ? outputAudioCtx.currentTime : 0;
+                        isAISpeaking = false;
+                        setTurnState('user_speaking');
+                    }
+
+                    if (msg.serverContent && msg.serverContent.turnComplete) {
+                        clearTimeout(aiSilenceCheckTimeout);
+                        aiSilenceCheckTimeout = setTimeout(() => {
+                            isAISpeaking = false;
+                            setTurnState('user_speaking');
+                        }, 500);
+                    }
+                } catch (err) {
+                    console.error("Error parsing live socket message:", err);
                 }
-            } catch (e) {
-                speakAIResponse(`नमस्ते! मैं आपका वॉयस असिस्टेंट हूँ। बताइए आज मैं आपकी क्या सहायता करूँ?`);
-            }
+            };
+
+            liveSocket.onerror = (err) => {
+                console.error("Live Socket Error:", err);
+                callStatusLabel.innerText = "Socket Error";
+                callSubState.innerText = "API Key या मॉडल की अनुमति जांचें";
+            };
+
+            liveSocket.onclose = (event) => {
+                console.warn("Live Socket closed:", event.code, event.reason);
+                if (isCallActive) {
+                    callStatusLabel.innerText = "कॉल समाप्त";
+                    callSubState.innerText = event.reason || "सॉकेट डिस्कनेक्ट हुआ";
+                    setTimeout(terminateCall, 1800);
+                }
+            };
         }
 
         /*
            ========================================================================
-           NATURAL SPOKEN VOICE SYNTHESIS
+           RAW PCM PLAYBACK (24,000Hz via Web Audio API)
            ========================================================================
         */
-        function speakAIResponse(fullText) {
-            if (!window.speechSynthesis || !isCallActive) {
-                setTurnState('user_turn');
-                return;
-            }
-
-            window.speechSynthesis.cancel();
-            clearInterval(ttsKeepAliveInterval);
-
-            const cleanText = fullText.replace(/[*#_`]/g, '').trim();
-            const sentences = cleanText.match(/[^.!?।\n]+[.!?।\n]?/g) || [cleanText];
-            let currentIdx = 0;
-
-            const speed = parseFloat(selectVoiceSpeed.value) || 0.95;
-
-            const voices = window.speechSynthesis.getVoices();
-            let selectedVoice = voices.find(v => (v.lang === 'hi-IN' || v.lang.startsWith('hi')) && (v.name.includes('Swara') || v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Female')));
-            if (!selectedVoice) selectedVoice = voices.find(v => v.lang === 'hi-IN' || v.lang.startsWith('hi'));
-            if (!selectedVoice) selectedVoice = voices.find(v => v.lang.includes('IN') || v.name.includes('India'));
-
+        function playRawPCMChunk(base64Data) {
+            if (!outputAudioCtx || outputAudioCtx.state === 'closed') return;
             setTurnState('ai_speaking');
 
-            function speakNextChunk() {
-                if (!isCallActive || currentIdx >= sentences.length) {
-                    clearInterval(ttsKeepAliveInterval);
-                    if (isCallActive) {
-                        setTurnState('user_turn');
-                    }
-                    return;
-                }
-
-                const chunkText = sentences[currentIdx].trim();
-                if (!chunkText) {
-                    currentIdx++;
-                    speakNextChunk();
-                    return;
-                }
-
-                const utterance = new SpeechSynthesisUtterance(chunkText);
-                utterance.lang = 'hi-IN';
-                utterance.rate = speed;
-                utterance.pitch = 1.05;
-
-                if (selectedVoice) utterance.voice = selectedVoice;
-
-                utterance.onend = () => {
-                    currentIdx++;
-                    speakNextChunk();
-                };
-
-                utterance.onerror = (e) => {
-                    console.warn("TTS chunk error:", e);
-                    currentIdx++;
-                    speakNextChunk();
-                };
-
-                window.speechSynthesis.speak(utterance);
+            const binaryString = atob(base64Data);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
             }
 
-            ttsKeepAliveInterval = setInterval(() => {
-                if (window.speechSynthesis.speaking) {
-                    window.speechSynthesis.pause();
-                    window.speechSynthesis.resume();
-                } else {
-                    clearInterval(ttsKeepAliveInterval);
-                }
-            }, 4000);
+            const pcm16 = new Int16Array(bytes.buffer);
+            const sampleRate = 24000; // Gemini Live API outputs 24kHz PCM
+            const audioBuffer = outputAudioCtx.createBuffer(1, pcm16.length, sampleRate);
+            const channelData = audioBuffer.getChannelData(0);
 
-            speakNextChunk();
+            for (let i = 0; i < pcm16.length; i++) {
+                channelData[i] = pcm16[i] / 32768.0;
+            }
+
+            const source = outputAudioCtx.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(outputAudioCtx.destination);
+
+            const currentTime = outputAudioCtx.currentTime;
+            if (nextPlayTime < currentTime) {
+                nextPlayTime = currentTime;
+            }
+
+            source.start(nextPlayTime);
+            nextPlayTime += audioBuffer.duration;
+
+            clearTimeout(aiSilenceCheckTimeout);
+            aiSilenceCheckTimeout = setTimeout(() => {
+                isAISpeaking = false;
+                setTurnState('user_speaking');
+            }, (nextPlayTime - currentTime + 0.3) * 1000);
+        }
+
+        /*
+           ========================================================================
+           MICROPHONE DOWNSAMPLING & LIVE STREAMING (16,000Hz PCM)
+           ========================================================================
+        */
+        function setupMicrophoneStreaming() {
+            micSource = inputAudioCtx.createMediaStreamSource(micStream);
+            userAnalyser = inputAudioCtx.createAnalyser();
+            userAnalyser.fftSize = 64;
+
+            scriptProcessor = inputAudioCtx.createScriptProcessor(4096, 1, 1);
+
+            micSource.connect(userAnalyser);
+            micSource.connect(scriptProcessor);
+            scriptProcessor.connect(inputAudioCtx.destination);
+
+            scriptProcessor.onaudioprocess = (e) => {
+                if (!isCallActive || isMicMuted || isAISpeaking) return;
+                if (!liveSocket || liveSocket.readyState !== WebSocket.OPEN) return;
+
+                const inputFloat32 = e.inputBuffer.getChannelData(0);
+                const inputSampleRate = inputAudioCtx.sampleRate;
+                const targetSampleRate = 16000; // Gemini Live API expects 16kHz PCM input
+
+                // Downsample to 16kHz
+                const ratio = inputSampleRate / targetSampleRate;
+                const newLength = Math.round(inputFloat32.length / ratio);
+                const pcm16Data = new Int16Array(newLength);
+
+                for (let i = 0; i < newLength; i++) {
+                    const originIndex = Math.min(Math.round(i * ratio), inputFloat32.length - 1);
+                    const s = Math.max(-1, Math.min(1, inputFloat32[originIndex]));
+                    pcm16Data[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+                }
+
+                // Convert to Base64
+                let binary = '';
+                const bytes = new Uint8Array(pcm16Data.buffer);
+                const byteLen = bytes.byteLength;
+                for (let i = 0; i < byteLen; i++) {
+                    binary += String.fromCharCode(bytes[i]);
+                }
+                const base64Audio = btoa(binary);
+
+                // Send live mediaChunk
+                const realtimeMsg = {
+                    realtimeInput: {
+                        mediaChunks: [{
+                            mimeType: "audio/pcm;rate=16000",
+                            data: base64Audio
+                        }]
+                    }
+                };
+                liveSocket.send(JSON.stringify(realtimeMsg));
+            };
         }
 
         /*
@@ -821,8 +733,8 @@
                     });
                     userBars.forEach(bar => { bar.style.height = "4px"; });
                 } else {
-                    if (analyser && !isMicMuted) {
-                        analyser.getByteFrequencyData(freqData);
+                    if (userAnalyser && !isMicMuted) {
+                        userAnalyser.getByteFrequencyData(freqData);
                         userBars.forEach((bar, idx) => {
                             const val = freqData[idx * 2] || 0;
                             const h = Math.min(26, Math.max(4, (val / 255) * 28));
@@ -856,7 +768,7 @@
 
         /*
            ========================================================================
-           CALL SETUP & HARDWARE RELEASE
+           CALL SETUP & FORCEFUL HARDWARE RELEASE
            ========================================================================
         */
         async function initiateCall() {
@@ -878,28 +790,23 @@
                         autoGainControl: true,
                     }
                 });
+
+                inputAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                outputAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+                if (inputAudioCtx.state === 'suspended') await inputAudioCtx.resume();
+                if (outputAudioCtx.state === 'suspended') await outputAudioCtx.resume();
             } catch (err) {
                 btnStartCallNow.classList.remove('opacity-70', 'pointer-events-none');
                 refreshIcons();
-                alert("कॉल करने के लिए माइक्रोफोन की अनुमति आवश्यक है।");
+                alert("कॉल करने के लिए माइक्रोफोन की अनुमति आवश्यक है: " + err.message);
                 return;
             }
 
             btnStartCallNow.classList.remove('opacity-70', 'pointer-events-none');
-
-            try {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const source = audioCtx.createMediaStreamSource(micStream);
-                analyser = audioCtx.createAnalyser();
-                analyser.fftSize = 64;
-                source.connect(analyser);
-            } catch (e) {
-                console.warn("Analyser init notice:", e);
-            }
-
             isCallActive = true;
             isMicMuted = false;
-            conversationHistory = [];
+            nextPlayTime = 0;
 
             callingScreen.classList.remove('hidden');
             homeScreen.classList.add('opacity-0', 'pointer-events-none');
@@ -907,51 +814,51 @@
 
             startCallTimer();
             startVisualizerLoop();
-            initNativeSpeechRecognition();
+            setupMicrophoneStreaming();
+            connectLiveWebSocket();
             syncTopicUI();
             refreshIcons();
-
-            setTimeout(triggerInitialGreeting, 500);
         }
 
-        // Complete Hardware Release on Hangup
         function terminateCall() {
             isCallActive = false;
             isAISpeaking = false;
-            speechAccumulator = '';
-
-            if (speechSilenceTimer) clearTimeout(speechSilenceTimer);
-            clearInterval(ttsKeepAliveInterval);
             stopCallTimer();
 
-            if (window.speechSynthesis) {
-                window.speechSynthesis.cancel();
+            if (aiSilenceCheckTimeout) clearTimeout(aiSilenceCheckTimeout);
+            if (visualizerAnimId) cancelAnimationFrame(visualizerAnimId);
+
+            if (liveSocket) {
+                try { liveSocket.close(); } catch (e) {}
+                liveSocket = null;
             }
 
-            if (visualizerAnimId) {
-                cancelAnimationFrame(visualizerAnimId);
-                visualizerAnimId = null;
+            if (scriptProcessor) {
+                try { scriptProcessor.disconnect(); } catch (e) {}
+                scriptProcessor = null;
             }
 
-            if (recognition) {
-                try {
-                    recognition.stop();
-                    recognition.abort();
-                } catch (e) {}
-                recognition = null;
+            if (micSource) {
+                try { micSource.disconnect(); } catch (e) {}
+                micSource = null;
             }
 
-            if (analyser) {
-                try { analyser.disconnect(); } catch (e) {}
-                analyser = null;
+            if (userAnalyser) {
+                try { userAnalyser.disconnect(); } catch (e) {}
+                userAnalyser = null;
             }
 
-            if (audioCtx) {
-                try { audioCtx.close(); } catch (e) {}
-                audioCtx = null;
+            if (inputAudioCtx) {
+                try { inputAudioCtx.close(); } catch (e) {}
+                inputAudioCtx = null;
             }
 
-            // Shuts off Chrome/mobile tab microphone red dot
+            if (outputAudioCtx) {
+                try { outputAudioCtx.close(); } catch (e) {}
+                outputAudioCtx = null;
+            }
+
+            // Immediately extinguishes Chrome tab's red microphone indicator
             if (micStream) {
                 micStream.getTracks().forEach(track => {
                     try {
@@ -980,16 +887,10 @@
                 micIcon.setAttribute('data-lucide', 'mic-off');
                 micLabel.innerText = "अनम्यूट";
                 micBtnCircle.classList.add('bg-rose-500/30', 'text-rose-400');
-                callSubState.innerText = "माइक बंद है";
-                pauseSpeechRecognition();
             } else {
                 micIcon.setAttribute('data-lucide', 'mic');
                 micLabel.innerText = "म्यूट";
                 micBtnCircle.classList.remove('bg-rose-500/30', 'text-rose-400');
-                callSubState.innerText = "माइक्रोफ़ोन सक्रिय है... बोलिए";
-                if (!isAISpeaking) {
-                    resumeSpeechRecognition();
-                }
             }
             refreshIcons();
         });
@@ -999,13 +900,12 @@
         btnCloseSettingsModal.addEventListener('click', () => settingsModal.classList.add('hidden'));
 
         btnSaveSettings.addEventListener('click', () => {
-            localStorage.setItem('gemini_api_key', inputApiKey.value.trim());
-            localStorage.setItem('gemini_topic', inputTopic.value.trim());
-            localStorage.setItem('gemini_model', selectModel.value);
-            localStorage.setItem('gemini_speed', selectVoiceSpeed.value);
+            localStorage.setItem('gemini_live_api_key', inputApiKey.value.trim());
+            localStorage.setItem('gemini_live_topic', inputTopic.value.trim());
+            localStorage.setItem('gemini_live_model', selectModel.value);
+            localStorage.setItem('gemini_live_voice', selectVoiceName.value);
 
             syncTopicUI();
-
             btnSaveSettings.innerHTML = `<i data-lucide="check-check" class="w-4 h-4"></i> Saved!`;
             refreshIcons();
             setTimeout(() => {
@@ -1017,15 +917,15 @@
 
         // Initialization
         window.addEventListener('load', () => {
-            const savedKey = localStorage.getItem('gemini_api_key') || '';
-            const savedTopic = localStorage.getItem('gemini_topic') || 'Acupressure & Health Specialist';
-            const savedModel = localStorage.getItem('gemini_model') || 'gemini-3.5-flash-lite';
-            const savedSpeed = localStorage.getItem('gemini_speed') || '0.95';
+            const savedKey = localStorage.getItem('gemini_live_api_key') || '';
+            const savedTopic = localStorage.getItem('gemini_live_topic') || 'Acupressure Doctor & Health Specialist';
+            const savedModel = localStorage.getItem('gemini_live_model') || 'gemini-2.0-flash-exp';
+            const savedVoice = localStorage.getItem('gemini_live_voice') || 'Aoede';
 
             inputApiKey.value = savedKey;
             inputTopic.value = savedTopic;
             selectModel.value = savedModel;
-            selectVoiceSpeed.value = savedSpeed;
+            selectVoiceName.value = savedVoice;
 
             syncTopicUI();
             refreshIcons();
@@ -1033,12 +933,6 @@
             if (!savedKey) {
                 document.getElementById('apiKeyDot').classList.remove('hidden');
                 setTimeout(() => settingsModal.classList.remove('hidden'), 500);
-            }
-
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.onvoiceschanged = () => {
-                    window.speechSynthesis.getVoices();
-                };
             }
         });
     </script>
